@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>Reports & Analytics</h1>
+</div>
+<div class="card-container">
+  <div class="card report-card">
+    <h3>Monthly Medicine Usage</h3>
+    <p id="monthly-usage">350 units</p>
+  </div>
+  <div class="card report-card">
+    <h3>Doctor Visit Frequency</h3>
+    <p id="visit-frequency">~15 visits/day</p>
+  </div>
+  <div class="card report-card">
+    <h3>Ambulance Requests (Last Month)</h3>
+    <p id="ambulance-requests">22</p>
+  </div>
+</div>
+
+<div class="section-container">
+  <h2>Detailed Reports</h2>
+  <p>Use the filters below to generate specific reports.</p>
+  <div class="form-group">
+    <label for="report-type">Report Type:</label>
+    <select id="report-type">
+      <option>Monthly Usage</option>
+      <option>Doctor Leaves</option>
+      <option>Student Health Trends</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="date-range">Date Range:</label>
+    <input type="month" id="date-range" />
+  </div>
+  <button class="btn-submit">Generate Report</button>
+</div>

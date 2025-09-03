@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Doctor Availability</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        color: #d1d5db; /* gray-300 */
+      }
+      .active-nav-link {
+        background-color: #374151; /* gray-700 */
+        color: white;
+      }
+      .bg-card {
+        background-color: #374151; /* gray-700 */
+      }
+      .message-box {
+        animation: slideIn 0.5s forwards;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 flex flex-col md:flex-row min-h-screen">
+    <!-- Sidebar -->
+    <aside
+      class="w-full md:w-64 bg-gray-950 text-white p-6 flex flex-col items-center md:items-start space-y-8 shadow-2xl"
+    >
+      <div class="flex items-center space-x-2 mb-4">
+        <i class="fas fa-hospital text-xl text-blue-400"></i>
+        <h1 class="text-xl font-bold">HMS</h1>
+        <span class="text-sm text-gray-400 ml-2">Student Mode</span>
+      </div>
+      <nav class="w-full">
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-chart-line mr-3"></i>
+              <span class="font-medium">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-box-open mr-3"></i>
+              <span class="font-medium">Inventory Management</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-cash-register mr-3"></i>
+              <span class="font-medium">Student Request</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-history mr-3"></i>
+              <span class="font-medium"> Medicine Used</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-sync-alt mr-3"></i>
+              <span class="font-medium">Restocking</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="ambulance.html"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-truck-medical mr-3"></i>
+              <span class="font-medium">Ambulance</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200 active-nav-link"
+            >
+              <i class="fa-solid fa-chart-bar mr-3"></i>
+              <span class="font-medium">Doctor Availability</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-cog mr-3"></i>
+              <span class="font-medium">Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="mt-auto w-full">
+        <a
+          href="index.html"
+          class="flex items-center justify-center w-full px-4 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition-colors duration-200"
+        >
+          <i class="fa-solid fa-right-from-bracket mr-2"></i>
+          <span class="font-semibold">Log Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8 overflow-y-auto bg-gray-800">
+      <!-- Top Header -->
+      <header
+        class="flex items-center justify-between text-sm text-gray-400 mb-8"
+      >
+        <div id="date-time-display"></div>
+        <div class="flex items-center space-x-6">
+          <i
+            class="fa-solid fa-bell text-xl hover:text-white transition duration-200"
+          ></i>
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-user-circle text-xl"></i>
+            <span>Student Mode</span>
+          </div>
+          <div class="flex items-center space-x-2 cursor-pointer">
+            <i class="fa-solid fa-globe text-xl"></i>
+            <span>English</span>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Title & Actions -->
+      <h2 class="text-3xl font-bold text-white mb-1">Doctor Availability</h2>
+      <p class="text-gray-400 mb-8">
+        Check the availability of doctors and their location.
+      </p>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Doctor Availability Section -->
+        <div class="lg:col-span-2 bg-card rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-bold text-white mb-4">
+            Current Availability
+          </h3>
+          <div id="doctor-list" class="space-y-4">
+            <!-- Doctor cards will be injected here by JavaScript -->
+            <div
+              class="flex items-center justify-between py-3 px-4 rounded-lg bg-gray-700"
+            >
+              <div>
+                <p class="text-lg font-medium text-white">Dr. John Doe</p>
+                <p class="text-sm text-gray-400">Available at Hostel Block C</p>
+              </div>
+              <span
+                class="px-3 py-1 text-sm font-semibold rounded-full bg-green-600 text-white"
+              >
+                Available
+              </span>
+            </div>
+            <div
+              class="flex items-center justify-between py-3 px-4 rounded-lg bg-gray-700"
+            >
+              <div>
+                <p class="text-lg font-medium text-white">Dr. Jane Smith</p>
+                <p class="text-sm text-gray-400">Unavailable (On Leave)</p>
+              </div>
+              <span
+                class="px-3 py-1 text-sm font-semibold rounded-full bg-red-600 text-white"
+              >
+                On Leave
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctor Login & Status Update Section -->
+        <div class="bg-card rounded-xl shadow-lg p-6 h-fit">
+          <h3 class="text-xl font-bold text-white mb-4">Doctor Login</h3>
+          <form id="doctor-login-form" class="space-y-4">
+            <div>
+              <label
+                for="doctor-id"
+                class="block text-sm font-medium text-gray-400"
+                >Doctor ID</label
+              >
+              <input
+                type="text"
+                id="doctor-id"
+                name="doctor-id"
+                class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Your ID"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-400"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Your Password"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md flex items-center justify-center"
+            >
+              <i class="fa-solid fa-sign-in-alt mr-2"></i>
+              Log In
+            </button>
+          </form>
+
+          <div
+            id="doctor-status-form"
+            class="hidden mt-6 pt-4 border-t border-gray-700 space-y-4"
+          >
+            <h4 class="text-lg font-bold text-white">Update Status</h4>
+            <form id="status-update-form" class="space-y-4">
+              <div>
+                <label
+                  for="status"
+                  class="block text-sm font-medium text-gray-400"
+                  >Status</label
+                >
+                <select
+                  id="status"
+                  name="status"
+                  class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="Available">Available</option>
+                  <option value="On Leave">On Leave</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  for="location"
+                  class="block text-sm font-medium text-gray-400"
+                  >Location</label
+                >
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Hostel Block A"
+                />
+              </div>
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md"
+                >
+                  Update Status
+                </button>
+              </div>
+            </form>
+            <button
+              id="doctor-logout-btn"
+              class="w-full bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition duration-200 shadow-md flex items-center justify-center"
+            >
+              <i class="fa-solid fa-sign-out-alt mr-2"></i>
+              Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Message Box for notifications -->
+    <div
+      id="message-box"
+      class="fixed bottom-4 right-4 bg-gray-700 text-white p-4 rounded-lg shadow-lg hidden message-box"
+    >
+      <p id="message-text"></p>
+    </div>
+
+    <script>
+      // JavaScript to display the current date and time
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const formattedDate = now.toLocaleDateString("en-US", options);
+        document.getElementById("date-time-display").textContent =
+          formattedDate;
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+
+      // Mock data for doctors. In a real app, this would come from a database.
+      let doctors = [
+        {
+          id: 1,
+          name: "Dr. John Doe",
+          status: "Available",
+          location: "Hostel Block C",
+        },
+        {
+          id: 2,
+          name: "Dr. Jane Smith",
+          status: "On Leave",
+          location: "Unavailable",
+        },
+      ];
+      let isLoggedIn = false;
+      let loggedInDoctorId = null;
+
+      const doctorListEl = document.getElementById("doctor-list");
+      const loginForm = document.getElementById("doctor-login-form");
+      const statusUpdateSection = document.getElementById("doctor-status-form");
+      const statusUpdateForm = document.getElementById("status-update-form");
+      const logoutBtn = document.getElementById("doctor-logout-btn");
+      const messageBox = document.getElementById("message-box");
+      const messageText = document.getElementById("message-text");
+
+      // Function to show a custom message box
+      function showMessage(text, type = "info") {
+        messageText.textContent = text;
+        messageBox.classList.remove("hidden", "bg-red-700", "bg-green-700");
+        if (type === "error") {
+          messageBox.classList.add("bg-red-700");
+        } else if (type === "success") {
+          messageBox.classList.add("bg-green-700");
+        } else {
+          messageBox.classList.add("bg-gray-700");
+        }
+        setTimeout(() => {
+          messageBox.classList.add("hidden");
+        }, 3000);
+      }
+
+      // Function to render the doctor list
+      function renderDoctorList() {
+        doctorListEl.innerHTML = doctors
+          .map(
+            (doctor) => `
+                <div class="flex items-center justify-between py-3 px-4 rounded-lg bg-gray-700">
+                    <div>
+                        <p class="text-lg font-medium text-white">${
+                          doctor.name
+                        }</p>
+                        <p class="text-sm text-gray-400">
+                            ${
+                              doctor.status === "Available"
+                                ? `Available at ${doctor.location}`
+                                : `Unavailable (${doctor.location})`
+                            }
+                        </p>
+                    </div>
+                    <span class="px-3 py-1 text-sm font-semibold rounded-full ${getStatusClass(
+                      doctor.status
+                    )}">
+                        ${doctor.status}
+                    </span>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      function getStatusClass(status) {
+        return status === "Available"
+          ? "bg-green-600 text-white"
+          : "bg-red-600 text-white";
+      }
+
+      // Handle doctor login
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const doctorId = document.getElementById("doctor-id").value;
+        const password = document.getElementById("password").value;
+
+        // Simple mock authentication
+        if (doctorId === "doc123" && password === "pass123") {
+          isLoggedIn = true;
+          loggedInDoctorId = 1; // Corresponds to Dr. John Doe in mock data
+          loginForm.classList.add("hidden");
+          statusUpdateSection.classList.remove("hidden");
+          showMessage("Login successful!", "success");
+        } else {
+          showMessage("Invalid ID or password.", "error");
+        }
+      });
+
+      // Handle status update
+      statusUpdateForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const status = document.getElementById("status").value;
+        const location = document.getElementById("location").value;
+
+        const doctorIndex = doctors.findIndex((d) => d.id === loggedInDoctorId);
+        if (doctorIndex !== -1) {
+          doctors[doctorIndex].status = status;
+          doctors[doctorIndex].location =
+            status === "Available" ? location : "On Leave";
+          renderDoctorList();
+          showMessage("Status updated successfully!", "success");
+        }
+      });
+
+      // Handle logout
+      logoutBtn.addEventListener("click", () => {
+        isLoggedIn = false;
+        loggedInDoctorId = null;
+        loginForm.classList.remove("hidden");
+        statusUpdateSection.classList.add("hidden");
+        showMessage("Logged out successfully!", "success");
+      });
+
+      // Initial render
+      document.addEventListener("DOMContentLoaded", renderDoctorList);
+    </script>
+  </body>
+</html>

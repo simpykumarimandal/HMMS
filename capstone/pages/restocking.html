@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS | Restocking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        color: #d1d5db; /* gray-300 */
+      }
+      .active-nav-link {
+        background-color: #374151; /* gray-700 */
+        color: white;
+      }
+      .bg-card {
+        background-color: #374151; /* gray-700 */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 flex flex-col md:flex-row min-h-screen">
+    <!-- Sidebar -->
+    <aside
+      class="w-full md:w-64 bg-gray-950 text-white p-6 flex flex-col items-center md:items-start space-y-8 shadow-2xl"
+    >
+      <div class="flex items-center space-x-2 mb-4">
+        <i class="fas fa-hospital text-xl text-blue-400"></i>
+        <h1 class="text-xl font-bold">HMS</h1>
+        <span class="text-sm text-gray-400 ml-2">Admin Mode</span>
+      </div>
+      <nav class="w-full">
+        <ul class="space-y-2">
+          <li>
+            <a
+              href="dashboard.html"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-chart-line mr-3"></i>
+              <span class="font-medium">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-box-open mr-3"></i>
+              <span class="font-medium">Inventory Management</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-cash-register mr-3"></i>
+              <span class="font-medium">Student Request</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-history mr-3"></i>
+              <span class="font-medium"> Medicine Used</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200 active-nav-link"
+            >
+              <i class="fa-solid fa-sync-alt mr-3"></i>
+              <span class="font-medium">Restocking</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="ambulance.html"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-truck-medical mr-3"></i>
+              <span class="font-medium">Ambulance</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-chart-bar mr-3"></i>
+              <span class="font-medium">Doctor Availability</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition duration-200"
+            >
+              <i class="fa-solid fa-cog mr-3"></i>
+              <span class="font-medium">Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="mt-auto w-full">
+        <a
+          href="index.html"
+          class="flex items-center justify-center w-full px-4 py-3 rounded-lg bg-red-600 hover:bg-red-700 transition-colors duration-200"
+        >
+          <i class="fa-solid fa-right-from-bracket mr-2"></i>
+          <span class="font-semibold">Log Out</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8 overflow-y-auto bg-gray-800">
+      <!-- Top Header -->
+      <header
+        class="flex items-center justify-between text-sm text-gray-400 mb-8"
+      >
+        <div id="date-time-display"></div>
+        <div class="flex items-center space-x-6">
+          <i
+            class="fa-solid fa-bell text-xl hover:text-white transition duration-200"
+          ></i>
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-user-circle text-xl"></i>
+            <span>Administrator Mode</span>
+          </div>
+          <div class="flex items-center space-x-2 cursor-pointer">
+            <i class="fa-solid fa-globe text-xl"></i>
+            <span>English</span>
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Title -->
+      <h2 class="text-3xl font-bold text-white mb-1">Restocking</h2>
+      <p class="text-gray-400 mb-8">
+        Manage and order low-stock medicines from suppliers.
+      </p>
+
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Low Stock Items Section -->
+        <div class="bg-card rounded-xl shadow-lg p-6">
+          <h3
+            class="text-xl font-bold text-white mb-4 flex items-center justify-between"
+          >
+            <span>Low Stock Items</span>
+            <span id="low-stock-count" class="text-gray-400 text-sm"></span>
+          </h3>
+          <div id="low-stock-list" class="space-y-4">
+            <!-- Low stock item cards will be injected here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Restock Order Section -->
+        <div class="bg-card rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-bold text-white mb-4">Restock Order</h3>
+          <div id="restock-order-list" class="space-y-4">
+            <!-- Restock order items will be injected here by JavaScript -->
+            <p id="empty-order-message" class="text-gray-500 text-center">
+              Your order is empty. Add items from the low stock list.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-gray-700 text-right">
+            <button
+              id="submit-order-btn"
+              class="bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center float-right"
+            >
+              <i class="fa-solid fa-paper-plane mr-2"></i>
+              Submit Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // JavaScript to display the current date and time
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const formattedDate = now.toLocaleDateString("en-US", options);
+        document.getElementById("date-time-display").textContent =
+          formattedDate;
+      }
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+
+      // Mock data for low stock items
+      let lowStockItems = [
+        {
+          id: "item1",
+          name: "Paracetamol",
+          currentStock: 15,
+          supplier: "Supplier A",
+        },
+        {
+          id: "item2",
+          name: "Amoxicillin",
+          currentStock: 8,
+          supplier: "Supplier B",
+        },
+        {
+          id: "item3",
+          name: "Ibuprofen",
+          currentStock: 25,
+          supplier: "Supplier A",
+        },
+        {
+          id: "item4",
+          name: "Vitamin C",
+          currentStock: 5,
+          supplier: "Supplier C",
+        },
+        {
+          id: "item5",
+          name: "Loratadine",
+          currentStock: 12,
+          supplier: "Supplier B",
+        },
+      ];
+
+      // Mock data for the restock order
+      let restockOrder = {};
+
+      const lowStockListEl = document.getElementById("low-stock-list");
+      const restockOrderListEl = document.getElementById("restock-order-list");
+      const submitOrderBtn = document.getElementById("submit-order-btn");
+      const emptyOrderMessageEl = document.getElementById(
+        "empty-order-message"
+      );
+      const lowStockCountEl = document.getElementById("low-stock-count");
+
+      // Function to render the low stock items
+      function renderLowStockItems() {
+        lowStockListEl.innerHTML = lowStockItems
+          .map(
+            (item) => `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-3 px-4 rounded-lg bg-gray-700 border border-gray-600">
+                    <div class="flex-1 mb-2 sm:mb-0">
+                        <span class="text-lg font-medium text-white">${item.name}</span>
+                        <div class="text-sm text-gray-400">
+                            Current Stock: <span class="text-red-400 font-semibold">${item.currentStock}</span> | Supplier: ${item.supplier}
+                        </div>
+                    </div>
+                    <button
+                        data-id="${item.id}"
+                        class="add-to-order-btn bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+                    >
+                        Add to Order
+                    </button>
+                </div>
+            `
+          )
+          .join("");
+        lowStockCountEl.textContent = `(${lowStockItems.length} items)`;
+        addEventListeners();
+      }
+
+      // Function to render the restock order
+      function renderRestockOrder() {
+        if (Object.keys(restockOrder).length === 0) {
+          emptyOrderMessageEl.classList.remove("hidden");
+          restockOrderListEl.innerHTML = "";
+          submitOrderBtn.style.display = "none";
+        } else {
+          emptyOrderMessageEl.classList.add("hidden");
+          restockOrderListEl.innerHTML = Object.values(restockOrder)
+            .map(
+              (item) => `
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-3 px-4 rounded-lg bg-gray-700 border border-gray-600">
+                        <div class="flex-1 mb-2 sm:mb-0">
+                            <span class="text-lg font-medium text-white">${item.name}</span>
+                            <div class="text-sm text-gray-400">Supplier: ${item.supplier}</div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input
+                                type="number"
+                                data-id="${item.id}"
+                                value="${item.quantity}"
+                                min="1"
+                                class="quantity-input w-20 bg-gray-800 text-white rounded-lg px-2 py-1 text-center"
+                            />
+                            <button
+                                data-id="${item.id}"
+                                class="remove-from-order-btn text-red-400 hover:text-red-500 transition duration-200"
+                            >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+          submitOrderBtn.style.display = "inline-block";
+          addOrderEventListeners();
+        }
+      }
+
+      // Add event listeners for dynamic elements
+      function addEventListeners() {
+        document.querySelectorAll(".add-to-order-btn").forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const id = e.target.dataset.id;
+            const itemToAdd = lowStockItems.find((item) => item.id === id);
+            if (itemToAdd && !restockOrder[id]) {
+              restockOrder[id] = { ...itemToAdd, quantity: 100 };
+              renderRestockOrder();
+            }
+          });
+        });
+      }
+
+      function addOrderEventListeners() {
+        document.querySelectorAll(".quantity-input").forEach((input) => {
+          input.addEventListener("change", (e) => {
+            const id = e.target.dataset.id;
+            const newQuantity = parseInt(e.target.value, 10);
+            if (restockOrder[id] && newQuantity > 0) {
+              restockOrder[id].quantity = newQuantity;
+            }
+          });
+        });
+
+        document
+          .querySelectorAll(".remove-from-order-btn")
+          .forEach((button) => {
+            button.addEventListener("click", (e) => {
+              const id = e.target.dataset.id;
+              delete restockOrder[id];
+              renderRestockOrder();
+            });
+          });
+      }
+
+      submitOrderBtn.addEventListener("click", () => {
+        if (Object.keys(restockOrder).length > 0) {
+          alert("Restock order submitted successfully!");
+          // Reset the order
+          restockOrder = {};
+          renderRestockOrder();
+        }
+      });
+
+      // Initial render
+      document.addEventListener("DOMContentLoaded", () => {
+        renderLowStockItems();
+        renderRestockOrder();
+      });
+    </script>
+  </body>
+</html>
